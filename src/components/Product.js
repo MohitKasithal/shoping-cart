@@ -8,9 +8,13 @@ const Products = () => {
   const dispatch = useDispatch();
   const { data: products, status } = useSelector((state) => state.product);
 
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, []);
+  useEffect(
+    () => {
+      dispatch(fetchProducts());
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   const handleAdd = (product) => {
     dispatch(add(product));
