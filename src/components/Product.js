@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { add } from "../store/cartSlice";
+import { add, remove } from "../store/cartSlice";
 import { fetchProducts } from "../store/productSlice";
 import { STATUSES } from "../store/productSlice";
 
 const Products = () => {
   const dispatch = useDispatch();
   const { data: products, status } = useSelector((state) => state.product);
+  const cart = useSelector((state) => state.cart);
+
+  console.log(cart);
 
   useEffect(
     () => {
@@ -18,6 +21,9 @@ const Products = () => {
 
   const handleAdd = (product) => {
     dispatch(add(product));
+  };
+  const handleRemove = (product) => {
+    dispatch(remove(product));
   };
 
   if (status === STATUSES.LOADING) {
@@ -34,9 +40,16 @@ const Products = () => {
           <img src={product.image} alt="" />
           <h4>{product.title}</h4>
           <h5>{product.price}</h5>
-          <button onClick={() => handleAdd(product)} className="btn">
-            Add to cart
-          </button>
+
+          {cart.some((e) => e.id === product.id) ? (
+            <button onClick={() => handleRemove(product)} className="btn">
+              Remove
+            </button>
+          ) : (
+            <button onClick={() => handleAdd(product)} className="btn">
+              Add to cart
+            </button>
+          )}
         </div>
       ))}
     </div>

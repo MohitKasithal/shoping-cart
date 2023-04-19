@@ -13,7 +13,7 @@ const Navbar = () => {
         justifyContent: "space-between",
       }}>
       <span className="logo">SHOP STORE</span>
-      <div>
+      <div className="links">
         <Link className="navLink" to="/">
           Home
         </Link>
